@@ -1,6 +1,6 @@
 # znet
 
-** This project is developing! **
+This project is developing! 
 
 NaaS, Dockers of usefull network services.
 
