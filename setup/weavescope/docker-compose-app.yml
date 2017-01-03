@@ -1,0 +1,31 @@
+version: '2'
+services:
+  probe:
+    container_name: weavescope
+    image: weaveworks/scope
+    network_mode: "host"
+    pid: "host"
+    restart: "always"
+    privileged: true
+    labels:
+      - "works.weave.role=system"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+      - "/var/run/scope/plugins:/var/run/scope/plugins"
+    command:
+      - "--probe.docker=true"
+
+  app:
+    container_name: weavescope-app
+    image: weaveworks/scope
+    pid: "host"
+    restart: "always"
+    ports: 
+      - "4040:4040"
+    privileged: true
+    labels:
+      - "works.weave.role=system"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+    command:
+      - "--no-probe"

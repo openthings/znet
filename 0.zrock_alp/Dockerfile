@@ -1,0 +1,13 @@
+FROM alpine:edge
+
+MAINTAINER openthings <openthings@163.com>
+
+#COPY ./bin /usr/local/bin
+
+RUN apk update && apk upgrade && apk add bash wget curl openssl vim
+
+EXPOSE 9999
+
+WORKDIR /home/znet
+CMD ["bash"]
+
