@@ -1,9 +1,8 @@
-# znet
+# znet - NaaS, Network as a Services based on Dockers.
 This project is developing! 
 
-NaaS, Dockers of usefull Network as a Services.
-
 To help build a proxy/vpn quickly using docker.
+
 ## 0.xxxx, base docker.
 * alpine
 * ubuntu
