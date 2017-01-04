@@ -1,1 +1,1 @@
-docker build . -t openthings/zrock_alpine
+docker build -t openthings/zrock_alpine .

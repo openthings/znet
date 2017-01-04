@@ -1,0 +1,1 @@
+weave run --name zrear --restart=always -p 9999:9999 -it zrear

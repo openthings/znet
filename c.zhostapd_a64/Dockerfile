@@ -1,4 +1,4 @@
-FROM openthings/zrock_debian
+FROM aarch/debian:jessie
 
 MAINTAINER OpenThings "openthings@163.com"
 

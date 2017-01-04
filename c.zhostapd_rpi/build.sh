@@ -1,1 +1,1 @@
-docker build -t openthings/zhostapd .
+docker build -t openthings/zhostapd_rpi .

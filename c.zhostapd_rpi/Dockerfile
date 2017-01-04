@@ -1,5 +1,4 @@
 FROM sdhibit/rpi-raspbian:jessie
-#FROM container4armhf/armhf-alpine
 
 MAINTAINER OpenThings "openthings@163.com"
 

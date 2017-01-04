@@ -1,1 +1,1 @@
-docker build -t zrock_debian .
+docker build -t openthings/zrock_debian .

@@ -1,1 +1,1 @@
-docker build . -t openthings/zrear
+docker build -t openthings/zrear .
