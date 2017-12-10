@@ -1,8 +1,9 @@
-FROM alpine:edge
+FROM hypriot/rpi-alpine
 
 MAINTAINER openthings <openthings@163.com>
 
 #COPY ./bin /usr/local/bin
+COPY ./bin /tmp/
 
 RUN apk update && apk upgrade && apk add bash wget curl openssl vim
 
