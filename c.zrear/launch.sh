@@ -1,4 +1,4 @@
-docker run -d --name zrear --restart=always -p 9999:9999 -it openthings/zrear_rpi
+docker run -d --name zrear --restart=always -p 9999:9999 openthings/zrear_rpi
 
 #weave run --name zrear --restart=always -p 9999:9999 -it openthings/zrear
 
