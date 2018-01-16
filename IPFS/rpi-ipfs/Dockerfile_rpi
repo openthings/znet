@@ -2,8 +2,7 @@ FROM openthings/zrock_rpi
 
 MAINTAINER openthings <openthings@163.com>
 
-#COPY ./bin/cow /usr/local/bin/
-COPY ./bin/cow /home/znet/cow
+COPY ./bin/ ~/ipfs
 
 #RUN mkdir -p /home/znet &&\
 #	cd /home/znet &&\
