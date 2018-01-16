@@ -15,7 +15,7 @@ RUN apk update \
 ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_shacheck /usr/local/bin/shacheck
 ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_daemon /usr/local/bin/start_ipfs
 
-ADD ./go-ipfs /usr/local/bin
+COPY ./go-ipfs /usr/local/bin/go-ipfs
 
 RUN mkdir -p /data/ipfs \ 
   && ls -l /usr/local/bin/go-ipfs \
