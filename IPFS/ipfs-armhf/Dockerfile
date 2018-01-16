@@ -30,5 +30,5 @@ RUN apk del wget \
 VOLUME /data/ipfs
 
 EXPOSE 4001 5001 8080
-CMD ["/usr/local/bin/go-ipfs/ipfs daemon"]
+CMD ["/usr/local/bin/go-ipfs/ipfs","daemon"]
 #ENTRYPOINT ["/bin/bash", "ipfs daemon"]
