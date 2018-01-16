@@ -19,9 +19,8 @@ COPY ./go-ipfs /usr/local/bin/go-ipfs
 
 RUN mkdir -p /data/ipfs \ 
   && ls -l /usr/local/bin/go-ipfs \
-  #&& /usr/local/bin/go-ipfs/install.sh \
   && chmod 755 /usr/local/bin/start_ipfs
- 
+  
 RUN apk del wget \
   && apk del zip \
   && apk del curl \
@@ -29,6 +28,8 @@ RUN apk del wget \
 
 VOLUME /data/ipfs
 
+RUN /bin/sh /usr/local/bin/go-ipfs/install.sh
+
 EXPOSE 4001 5001 8080
-CMD ["/usr/local/bin/go-ipfs/ipfs","daemon"]
+CMD ["/usr/local/bin/ipfs","daemon"]
 #ENTRYPOINT ["/bin/bash", "ipfs daemon"]
