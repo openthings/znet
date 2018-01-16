@@ -2,6 +2,7 @@ FROM openthings/zrock_rpi
 
 MAINTAINER openthings <openthings@163.com>
 
+
 COPY . /home/znet/ipfs
 
 RUN apt install wget
