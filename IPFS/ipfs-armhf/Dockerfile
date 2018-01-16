@@ -14,12 +14,12 @@ ADD ./go-ipfs /usr/local/bin/go-ipfs
 
 RUN apk update \
  && apk upgrade \
- && apk add --update bash curl wget ca-certificates zip \
+ && apk add --update bash curl wget ca-certificates zip
 
 RUN \ 
  && mkdir -p /data/ipfs \ 
  && /usr/local/bin/go-ipfs/install
- && chmod 755 /usr/local/bin/start_ipfs \
+ && chmod 755 /usr/local/bin/start_ipfs
  
 RUN \
   && apk del wget \
