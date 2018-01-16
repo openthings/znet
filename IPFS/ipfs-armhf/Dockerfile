@@ -15,11 +15,11 @@ RUN apk update \
 ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_shacheck /usr/local/bin/shacheck
 ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_daemon /usr/local/bin/start_ipfs
 
-COPY ./go-ipfs /usr/local/bin/ipfs
+COPY ./go-ipfs /usr/local/bin/go-ipfs
 
 RUN mkdir -p /data/ipfs \ 
-  && ls -l /usr/local/bin/ipfs \
-  && cp /usr/local/bin/ipfs /usr/local/bin \
+  && ls -l /usr/local/bin/go-ipfs \
+  && cp /usr/local/bin/go-ipfs/ipfs /usr/local/bin \
   && chmod 755 /usr/local/bin/start_ipfs
   
 RUN apk del wget \
@@ -33,7 +33,7 @@ VOLUME /data/ipfs
 #RUN ~/go-ipfs/install.sh
 
 EXPOSE 4001 5001 8080
-WORKDIR /usr/local/bin/ipfs
+WORKDIR /usr/local/bin/go-ipfs
 #CMD ["ipfs daemon"]
 #ENTRYPOINT ["/bin/sh", "./root/go-ipfs/ipfs daemon"]
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/start_ipfs"]
