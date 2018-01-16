@@ -9,5 +9,5 @@ RUN /home/znet/ipfs/install
 EXPOSE 4001 5001 8080
 
 WORKDIR ~
-CMD [""]
+CMD ["ipfs daemon"]
 #CMD ["usr/local/bin/cow"]
