@@ -5,7 +5,7 @@ FROM resin/rpi-raspbian
 
 MAINTAINER openthings <openthings@163.com>
 
-COPY ./bin /usr/local/bin
+#COPY ./bin /usr/local/bin
 #COPY ./bin /tmp/
 
 #RUN apk update && apk upgrade && apk add bash wget curl openssl nano
