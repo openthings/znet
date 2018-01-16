@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+source ./lib/functions.sh
+
+[ -x "$(command -v ipfs)" ] && echo ">>> IPFS already installed. Use the uninstall script to remove it" && exit 0
+
+arm_type="? (unknown ARM system)"
+rpi_revision=`sed -rn 's/Revision\s+\:\s+([0-9a-z_\-\s\,\(\)]+)/\1/p' /proc/cpuinfo`
+
+if [[ $rpi_revision == *"900092"* ]]; then
+  arm_type="Raspberry Pi model zero"
+elif [[ $rpi_revision == *"00"* ]]; then
+  arm_type="Raspberry Pi 1"
+elif [[ $rpi_revision == *"a01041"* || $rpi_revision == *"a21041"* ]]; then
+  arm_type="Raspberry Pi 2"
+elif [[ $rpi_revision == *"a02082"* || $rpi_revision = *"a22082"* ]]; then
+  arm_type="Raspberry Pi 3"
+fi
+
+echo ">>> Starting installation on ARM device compatible with $arm_type"
+
+# Download and install IPFS
+ipfs_arch=${2-"linux-arm"}
+ipfs_version=${1-"v0.4.13"}
+
+echo ">>> Installing IPFS version $ipfs_version"
+
+tar_gz_destination=/tmp/go-ipfs_${ipfs_version}_${ipfs_arch}.tar.gz
+[ ! -f $tar_gz_destination ] && sudo wget "https://dist.ipfs.io/go-ipfs/${ipfs_version}/go-ipfs_${ipfs_version}_${ipfs_arch}.tar.gz" -O $tar_gz_destination
+
+if [ ! -f $tar_gz_destination ]; then
+  echo ">>> Failed to download IPFS"
+  exit 1
+fi
+
+ipfs_destination=/usr/local/bin/ipfs
+sudo tar xzvf $tar_gz_destination -C /tmp
+sudo cp /tmp/go-ipfs/ipfs $ipfs_destination
+sudo chown root:staff $ipfs_destination
+sudo chmod 755 $ipfs_destination
+
+# Maybe initialize IPFS
+[ ! -d ~/.ipfs ] && ipfs init
+
+# Install and enable bring-up configurations for IPFS daemon
+init_system=$(get_init_system)
+ipfs_path=$HOME/.ipfs
+
+if [ $init_system == "systemd" ]; then
+  cat ./templates/ipfs-daemon.service.tpl | sed \
+    "s|{{ipfs_path}}|${ipfs_path}|g" | \
+  sudo tee /lib/systemd/system/ipfs-daemon.service > /dev/null
+
+  sudo systemctl daemon-reload
+  sudo systemctl enable ipfs-daemon
+  sudo systemctl start ipfs-daemon.service
+elif [ $init_system == "upstart" ]; then
+  cat ./templates/ipfs-daemon.conf.tpl | sed \
+    "s|{{ipfs_path}}|${ipfs_path}|g" | \
+  sudo tee /etc/init/ipfs-daemon.conf > /dev/null
+
+  sudo initctl reload-configuration
+  sudo service ipfs-daemon start
+else
+  echo ">> Unable to detect init system - you don't seem to be using systemd or upstart. The IPFS daemon will have to be controlled manually."
+fi
+
+echo ">>> All done."
