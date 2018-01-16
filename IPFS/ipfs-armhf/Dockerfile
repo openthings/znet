@@ -32,5 +32,5 @@ RUN /root/go-ipfs/ipfs init
 #RUN ~/go-ipfs/install.sh
 
 EXPOSE 4001 5001 8080
-CMD ["/root/go-ipfs/ipfs daemon"]
+CMD ["/root/go-ipfs/ipfs","daemon"]
 #ENTRYPOINT ["/bin/bash", "ipfs daemon"]
