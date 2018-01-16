@@ -19,6 +19,7 @@ COPY ./go-ipfs /usr/local/bin/ipfs
 
 RUN mkdir -p /data/ipfs \ 
   && ls -l /usr/local/bin/ipfs \
+  && cp /usr/local/bin/ipfs /usr/local/bin \
   && chmod 755 /usr/local/bin/start_ipfs
   
 RUN apk del wget \
