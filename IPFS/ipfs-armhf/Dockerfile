@@ -18,7 +18,7 @@ RUN apk update \
 
 RUN \ 
  && mkdir -p /data/ipfs \ 
- && /usr/local/bin/go-ipfs/install
+ && /usr/local/bin/go-ipfs/install \
  && chmod 755 /usr/local/bin/start_ipfs
  
 RUN \
