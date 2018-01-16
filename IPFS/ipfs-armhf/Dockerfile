@@ -8,17 +8,19 @@ ENV IPFS_PATH /data/ipfs
 #ENV VERSION master
 #ENV VERSION v0.4.13
 
-ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_shacheck /usr/local/bin/shacheck
-ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_daemon /usr/local/bin/start_ipfs
-ADD ./go-ipfs /usr/local/bin/go-ipfs
-
 RUN apk update \
  && apk upgrade \
  && apk add --update bash curl wget ca-certificates zip
 
+ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_shacheck /usr/local/bin/shacheck
+ADD https://raw.githubusercontent.com/analogvoid/rpi-ipfs/master/container_daemon /usr/local/bin/start_ipfs
+
+ADD ./go-ipfs /usr/local/bin
+
 RUN mkdir -p /data/ipfs \ 
- && /usr/local/bin/go-ipfs/install \
- && chmod 755 /usr/local/bin/start_ipfs
+  && ls -l /usr/local/bin/go-ipfs \
+  && /usr/local/bin/go-ipfs/install \
+  && chmod 755 /usr/local/bin/start_ipfs
  
 RUN apk del wget \
   && apk del zip \
